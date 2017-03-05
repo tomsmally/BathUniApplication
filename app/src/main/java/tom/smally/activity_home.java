@@ -107,6 +107,7 @@ public class activity_home extends AppCompatActivity {
          * number.
          */
         public static PlaceholderFragment newInstance(int sectionNumber) {
+
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
@@ -117,7 +118,19 @@ public class activity_home extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_activity_home, container, false);
+            Integer sectionNumber = (Integer) savedInstanceState.get(ARG_SECTION_NUMBER);
+            View rootView = null;
+            switch (sectionNumber){
+                case 1:
+                    rootView = inflater.inflate(R.layout.fragment_activity_home, container, false);
+                    break;
+                case 2:
+                    rootView = inflater.inflate(R.layout.fragment_home_bath_uni, container, false);
+                    break;
+                case 3:
+                    rootView = inflater.inflate(R.layout.fragment_activity_home, container, false);
+                    break;
+            }
             //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
