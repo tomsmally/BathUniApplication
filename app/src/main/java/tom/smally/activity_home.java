@@ -98,6 +98,7 @@ public class activity_home extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
+        int fragment_sectionNumber = 0;
 
         public PlaceholderFragment() {
         }
@@ -110,6 +111,7 @@ public class activity_home extends AppCompatActivity {
 
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
+            fragment.fragment_sectionNumber = sectionNumber;
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
             return fragment;
@@ -118,9 +120,9 @@ public class activity_home extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            Integer sectionNumber = (Integer) savedInstanceState.get(ARG_SECTION_NUMBER);
             View rootView = null;
-            switch (sectionNumber){
+
+            switch (fragment_sectionNumber){
                 case 1:
                     rootView = inflater.inflate(R.layout.fragment_activity_home, container, false);
                     break;
@@ -128,7 +130,7 @@ public class activity_home extends AppCompatActivity {
                     rootView = inflater.inflate(R.layout.fragment_home_bath_uni, container, false);
                     break;
                 case 3:
-                    rootView = inflater.inflate(R.layout.fragment_activity_home, container, false);
+                    rootView = inflater.inflate(R.layout.fragment_home_extras, container, false);
                     break;
             }
             //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
@@ -168,7 +170,7 @@ public class activity_home extends AppCompatActivity {
                 case 1:
                     return "Bath Uni";
                 case 2:
-                    return "Options";
+                    return "Extras";
             }
             return null;
         }
