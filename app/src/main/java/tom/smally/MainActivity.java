@@ -22,7 +22,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.google.common.util.concurrent.FutureCallback;
+/*import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
@@ -30,7 +30,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.ValueEventListener;*/
 import com.microsoft.windowsazure.mobileservices.*;
 import com.microsoft.windowsazure.mobileservices.http.NextServiceFilterCallback;
 import com.microsoft.windowsazure.mobileservices.http.OkHttpClientFactory;
@@ -44,7 +44,7 @@ import com.microsoft.windowsazure.mobileservices.table.sync.localstore.ColumnDat
 import com.microsoft.windowsazure.mobileservices.table.sync.localstore.MobileServiceLocalStoreException;
 import com.microsoft.windowsazure.mobileservices.table.sync.localstore.SQLiteLocalStore;
 import com.microsoft.windowsazure.mobileservices.table.sync.synchandler.SimpleSyncHandler;
-import com.squareup.okhttp.OkHttpClient;
+//import com.squareup.okhttp.OkHttpClient;
 
 import java.net.MalformedURLException;
 import java.sql.Connection;
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity
 
     // Offline Sync:
     // private MobileServiceSyncTable<ToDoItem> mToDoTable; //Mobile Service Table used to access and Sync data
-    private ToDoItemAdapter mAdapter; // Adapter to sync the items list with the view
+    //private ToDoItemAdapter mAdapter; // Adapter to sync the items list with the view
     private EditText mTextNewToDo; //EditText containing the "New To Do" text
     private ProgressBar mProgressBar; //Progress spinner to use for table operations
 
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity
     public String GlobalUsername = "ts690";
     public String GlobalPassword = "Snowleopard2412";
 
-    private DatabaseReference mDatabase;
+    //private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,11 +92,16 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-        //MainActivity.this.startActivity(intent);
 
+        //MUST OPEN LOGIN PAGE FIRST:
+            //Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            //MainActivity.this.startActivity(intent);
+
+        //BUT FOR NOW:
         Intent intent = new Intent(MainActivity.this, activity_home.class);
-        MainActivity.this.startActivity(intent);
+        //MainActivity.this.startActivity(intent);
+        startActivity(intent);
+        onBackPressed();
 
         /************  GOOGLE - FIREBASE DATABASE   ****************************
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -132,12 +137,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-        }
+        }*/
+        super.onBackPressed();
     }
 
     @Override
@@ -156,7 +162,7 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.menu_refresh) {
-           refreshItemsFromTable();
+           //refreshItemsFromTable();
         }else if (id == R.id.action_settings) {
             return true;
         }else if(id == R.id.action_signout) {
@@ -229,7 +235,7 @@ public class MainActivity extends AppCompatActivity
     /**
      * Mark an item as completed
      * @param item  - The item to mark
-     */
+     *
     public void checkItem(final OpeningTimesItem item)
     {
         if (mClient == null) {
@@ -260,12 +266,12 @@ public class MainActivity extends AppCompatActivity
             }
         };
         runAsyncTask(task);
-    }
+    }*/
 
     /**
      * Mark an item as completed in the Mobile Service Table
      * @param item - The item to mark
-     */
+     *
     public void checkItemInTable(OpeningTimesItem item) throws ExecutionException, InterruptedException {
         //mToDoTable.update(item).get();
         mOpenTimesTable.update(item).get();
@@ -274,16 +280,16 @@ public class MainActivity extends AppCompatActivity
     /**
      * Add a new item
      * @param view - The view that originated the call
-     */
+     *
     public void addItem(View view) {
         if (mClient == null) {
             return;
         }
 
         // Create a new item
-        /*final ToDoItem item = new ToDoItem();
-        item.setText(mTextNewToDo.getText().toString());
-        item.setComplete(false);*/
+        ///final ToDoItem item = new ToDoItem();
+        //item.setText(mTextNewToDo.getText().toString());
+        //item.setComplete(false);
 
         final OpeningTimesItem item = new OpeningTimesItem();
         //item.setOpenTimes(getOpeningTimes());
@@ -316,12 +322,12 @@ public class MainActivity extends AppCompatActivity
         };
         runAsyncTask(task);
         mTextNewToDo.setText("");
-    }
+    }*/
 
     /**
      * Add an item to the Mobile Service Table
      * @param item - The item to Add
-     */
+     *
     public OpeningTimesItem addItemInTable(OpeningTimesItem item) throws ExecutionException, InterruptedException {
         //return mToDoTable.insert(item).get();
         return mOpenTimesTable.insert(item).get();
@@ -329,7 +335,7 @@ public class MainActivity extends AppCompatActivity
 
     /**
      * Refresh the list with the items in the Table
-     */
+     *
     private void refreshItemsFromTable()
     {
         // Get items not marked as completed and add them in the adapter
@@ -362,16 +368,16 @@ public class MainActivity extends AppCompatActivity
             }
         };
         runAsyncTask(task);
-    }
+    }*/
 
     /**
      * Refresh the list with the items in the Mobile Service Table
-     */
+     *
     private MobileServiceList<OpeningTimesItem> refreshItemsFromMobileServiceTable() throws ExecutionException, InterruptedException, MobileServiceException {
         //return mToDoTable.where().field("complete").eq(val(false)).execute().get();
         System.out.println("refreshItemsFromMobileServiceTable");
         return mOpenTimesTable.where().field("complete").eq(val(false)).execute().get();
-    }
+    }*/
 
     //Offline Sync
     /**
@@ -431,8 +437,8 @@ public class MainActivity extends AppCompatActivity
                     //localStore.defineTable("ToDoItem", tableDefinition);
                     localStore.defineTable("OpeningTimeItem", openTableDefinition);
 
-                    SimpleSyncHandler handler = new SimpleSyncHandler();
-                    syncContext.initialize(localStore, handler).get();
+                    //SimpleSyncHandler handler = new SimpleSyncHandler();
+                    //syncContext.initialize(localStore, handler).get();
 
                 } catch (final Exception e) {
                     createAndShowDialogFromTask(e, "Error, AsyncTask");
@@ -521,7 +527,7 @@ public class MainActivity extends AppCompatActivity
             return task.execute();
         }
     }
-
+    /*
     private class ProgressFilter implements ServiceFilter
     {
         @Override
@@ -559,4 +565,5 @@ public class MainActivity extends AppCompatActivity
             return resultFuture;
         }
     }
+    */
 }

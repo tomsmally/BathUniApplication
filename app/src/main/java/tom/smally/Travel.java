@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -32,7 +33,12 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Travel extends MainActivity {
+public class Travel extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
+
+    String GlobalEmail;
+    String GlobalUsername;
+    String GlobalPassword;
 
     Timer timer;
     TimerTask task;
@@ -43,19 +49,16 @@ public class Travel extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_travel);
+
+        Intent intent = getIntent();
+        GlobalEmail = intent.getStringExtra("EMAIL");
+        GlobalUsername = intent.getStringExtra("USERNAME");
+        GlobalPassword = intent.getStringExtra("PASSWORD");
+
         setTitle("Travel");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -118,9 +121,15 @@ public class Travel extends MainActivity {
         } else if (id == R.id.nav_gallery) {
             //Load popular page
             Intent intent = new Intent(Travel.this, Popular.class);
+            intent.putExtra("EMAIL",GlobalEmail);
+            intent.putExtra("USERNAME",GlobalUsername);
+            intent.putExtra("PASSWORD",GlobalPassword);
             Travel.this.startActivity(intent);
         } else if (id == R.id.nav_slideshow) {
             Intent intent = new Intent(Travel.this, Email.class);
+            intent.putExtra("EMAIL",GlobalEmail);
+            intent.putExtra("USERNAME",GlobalUsername);
+            intent.putExtra("PASSWORD",GlobalPassword);
             Travel.this.startActivity(intent);
         } else if (id == R.id.nav_manage) {
             Intent intent = new Intent(Travel.this, Map.class);

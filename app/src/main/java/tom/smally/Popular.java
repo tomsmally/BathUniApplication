@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,12 +17,23 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-public class Popular extends MainActivity {
+public class Popular extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener{
+
+    String GlobalEmail;
+    String GlobalUsername;
+    String GlobalPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_popular);
+
+        Intent intent = getIntent();
+        GlobalEmail = intent.getStringExtra("EMAIL");
+        GlobalUsername = intent.getStringExtra("USERNAME");
+        GlobalPassword = intent.getStringExtra("PASSWORD");
+
         setTitle("Timetable");
 
         final WebView web1 = (WebView) findViewById(R.id.webView);
@@ -41,8 +53,8 @@ public class Popular extends MainActivity {
             public void onPageFinished(WebView view, String url) {
                 if (!pageSubmitted) {
                     web1.loadUrl("javascript: {" +
-                            "document.getElementById('username').value = '" + "ts690" + "';" +
-                            "document.getElementById('password').value = '" + "Snowleopard2412" + "';" +
+                            "document.getElementById('username').value = '" + GlobalUsername + "';" +
+                            "document.getElementById('password').value = '" + GlobalPassword + "';" +
                             "document.getElementsByClassName('btn-submit')[0].click();" + //login-button - only for PC login
                             "};"); //submit*/
                     /*web1.loadUrl("javascript: {" +
@@ -131,6 +143,9 @@ public class Popular extends MainActivity {
             //do nothing
         } else if (id == R.id.nav_slideshow) {
             Intent intent = new Intent(Popular.this, Email.class);
+            intent.putExtra("EMAIL",GlobalEmail);
+            intent.putExtra("USERNAME",GlobalUsername);
+            intent.putExtra("PASSWORD",GlobalPassword);
             Popular.this.startActivity(intent);
         } else if (id == R.id.nav_manage) {
             Intent intent = new Intent(Popular.this, Map.class);

@@ -5,7 +5,7 @@ package tom.smally;
  */
 public class ToDoItem {
 
-    // Item text
+    /* Item text
     @com.google.gson.annotations.SerializedName("text")
     private String mText;
 
@@ -30,7 +30,7 @@ public class ToDoItem {
     /** Initialize new ToDoItem
      * @param text - The item text
      * @param id - The item id
-     */
+     *
     public ToDoItem(String text, String id) {
         this.setText(text);
         this.setId(id);
@@ -51,4 +51,5 @@ public class ToDoItem {
     {
         return o instanceof ToDoItem && ((ToDoItem) o).mId == mId;
     }
+    */
 }

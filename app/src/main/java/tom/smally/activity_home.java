@@ -1,8 +1,13 @@
 package tom.smally;
 
+import android.annotation.TargetApi;
+import android.content.Intent;
+import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -20,6 +25,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class activity_home extends AppCompatActivity {
+
+    String GlobalEmail = "ts690@bath.ac.uk";
+    String GlobalUsername = "ts690";
+    String GlobalPassword = "Snowleopard2412";
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -175,4 +184,48 @@ public class activity_home extends AppCompatActivity {
             return null;
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    public void onTimetableClick(View v){
+        Intent intent = new Intent(activity_home.this, Popular.class);
+        intent.putExtra("EMAIL",GlobalEmail);
+        intent.putExtra("USERNAME",GlobalUsername);
+        intent.putExtra("PASSWORD",GlobalPassword);
+        activity_home.this.startActivity(intent);
+    }
+    public void onEmailClick(View v){
+        Intent intent = new Intent(activity_home.this, Email.class);
+        intent.putExtra("EMAIL",GlobalEmail);
+        intent.putExtra("USERNAME",GlobalUsername);
+        intent.putExtra("PASSWORD",GlobalPassword);
+        activity_home.this.startActivity(intent);
+    }
+    public void onMapClick(View v){
+        Intent intent = new Intent(activity_home.this, Map.class);
+        activity_home.this.startActivity(intent);
+    }
+    public void onLibraryClick(View v){
+        Intent intent = new Intent(activity_home.this, Library.class);
+        intent.putExtra("EMAIL",GlobalEmail);
+        intent.putExtra("USERNAME",GlobalUsername);
+        intent.putExtra("PASSWORD",GlobalPassword);
+        activity_home.this.startActivity(intent);
+    }
+    public void onTravelClick(View v){
+        Intent intent = new Intent(activity_home.this, Travel.class);
+        activity_home.this.startActivity(intent);
+    }
+    public void onFoodClick(View v){
+        Intent intent = new Intent(activity_home.this, Food.class);
+        activity_home.this.startActivity(intent);
+    }
+    public void onSocialClick(View v){
+        Intent intent = new Intent(activity_home.this, Social.class);
+        activity_home.this.startActivity(intent);
+    }
+
 }

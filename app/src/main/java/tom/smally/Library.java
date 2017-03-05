@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
@@ -31,7 +32,13 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Library extends MainActivity {
+public class Library extends AppCompatActivity{
+
+    String GlobalEmail;
+    String GlobalUsername;
+    String GlobalPassword;
+
+    int library_status = 0;
 
     HashMap<String, String> pcFinderLinks = new HashMap<String, String>();
 
@@ -39,6 +46,12 @@ public class Library extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_library);
+
+        Intent intent = getIntent();
+        GlobalEmail = intent.getStringExtra("EMAIL");
+        GlobalUsername = intent.getStringExtra("USERNAME");
+        GlobalPassword = intent.getStringExtra("PASSWORD");
+
         setTitle("Library");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -62,15 +75,35 @@ public class Library extends MainActivity {
     @Override
     public void onBackPressed()
     {
-        this.finish();
+        if(library_status==1){
+            library_status = 0;
+
+            setContentView(R.layout.activity_library);
+
+            setTitle("Library");
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }else{
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        onBackPressed();
+        return true;
     }
 
     public void pinClick(View v)
     {
+        library_status = 1;
         setContentView(R.layout.activity_library2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        setTitle("Your PIN");
 
         WebView webView = (WebView) findViewById(R.id.webView2);
         webView.loadUrl("http://bath-ac-primo.hosted.exlibrisgroup.com/primo_library/libweb/action/login.do?loginFn=signin&vid=44BAT_VU1&authProfileName=44BAT_ALMA_SAML_Prod&targetURL=http%3a%2f%2fbath-ac-primo.hosted.exlibrisgroup.com%2fprimo_library%2flibweb%2faction%2fmyAccountMenu.do%3fvid%3d44BAT_VU1%26institution%3d44BAT");
@@ -79,10 +112,13 @@ public class Library extends MainActivity {
 
     public void borrowClick(View v)
     {
+        library_status = 1;
         setContentView(R.layout.activity_library2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        setTitle("Book Loans");
 
         WebView webView = (WebView) findViewById(R.id.webView2);
         webView.loadUrl("http://bath-ac-primo.hosted.exlibrisgroup.com/primo_library/libweb/action/login.do?loginFn=signin&vid=44BAT_VU1&authProfileName=44BAT_ALMA_SAML_Prod&targetURL=http%3a%2f%2fbath-ac-primo.hosted.exlibrisgroup.com%2fprimo_library%2flibweb%2faction%2fmyAccountMenu.do%3fvid%3d44BAT_VU1%26institution%3d44BAT");
@@ -91,10 +127,13 @@ public class Library extends MainActivity {
 
     public void pcFinderClick(View v)
     {
+        library_status = 1;
         setContentView(R.layout.activity_library2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        setTitle("PC Finder");
 
         WebView webView = (WebView) findViewById(R.id.webView2);
         webView.loadUrl("https://isecure.bath.ac.uk/computingavailability/");
@@ -341,5 +380,4 @@ public class Library extends MainActivity {
             }
         });
     }
-
 }

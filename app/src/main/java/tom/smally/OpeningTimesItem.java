@@ -7,7 +7,7 @@ package tom.smally;
  */
 public class OpeningTimesItem {
 
-    // Item text
+    /* Item text
     @com.google.gson.annotations.SerializedName("text")
     private String mText;
 
@@ -18,13 +18,13 @@ public class OpeningTimesItem {
     private String mId;
     // Indicates if the item is completed
     @com.google.gson.annotations.SerializedName("complete")
-    private boolean mComplete;
+    private boolean mComplete;*/
 
     //OpeningTimesItem constructor
     public OpeningTimesItem() {
 
     }
-
+    /*
     @Override
     public String toString() {
         return getText();
@@ -33,28 +33,29 @@ public class OpeningTimesItem {
     /** Initialize new ToDoItem
      * @param text - The item text
      * @param id - The item id
-     */
+     *
     public OpeningTimesItem(String text, openingTimes times, String id) {
         this.setText(text);
         //this.setOpenTimes(times);
         this.setId(id);
-    }
+    }*/
     /*public openingTimes getOpenTimes(){
         return mOpenTimes;
     }
     public final void setOpenTimes(openingTimes times){
         mOpenTimes = times;
-    }*/
+    }
     public String getText() { return mText;  }
     public final void setText(String text) { mText = text;  }
     public String getId() {     return mId;    }
     public final void setId(String id) {        mId = id;    }
     public boolean isComplete() {        return mComplete;    } //Indicates if the item is marked as completed
     public void setComplete(boolean complete) { mComplete = complete; } // Sets the item as completed or incompleted
+    *
 
     @Override
     public boolean equals(Object o){
         return o instanceof OpeningTimesItem && ((OpeningTimesItem) o).mId == mId;
-    }
+    }*/
 
 }

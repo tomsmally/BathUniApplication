@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,7 +18,12 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-public class Email extends MainActivity {
+public class Email extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
+
+    String GlobalEmail;
+    String GlobalUsername;
+    String GlobalPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +31,13 @@ public class Email extends MainActivity {
         setContentView(R.layout.activity_email);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Intent intent = getIntent();
+        GlobalEmail = intent.getStringExtra("EMAIL");
+        GlobalUsername = intent.getStringExtra("USERNAME");
+        GlobalPassword = intent.getStringExtra("PASSWORD");
+
+
         setTitle("Email");
 
         final WebView web1 = (WebView) findViewById(R.id.webView);
@@ -151,6 +164,9 @@ public class Email extends MainActivity {
             Email.this.startActivity(intent);
         } else if (id == R.id.nav_gallery) {
             Intent intent = new Intent(Email.this, Popular.class);
+            intent.putExtra("EMAIL",GlobalEmail);
+            intent.putExtra("USERNAME",GlobalUsername);
+            intent.putExtra("PASSWORD",GlobalPassword);
             Email.this.startActivity(intent);
         } else if (id == R.id.nav_slideshow) {
 

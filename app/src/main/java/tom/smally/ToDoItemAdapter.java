@@ -38,7 +38,7 @@ public class ToDoItemAdapter extends ArrayAdapter<OpeningTimesItem> {
         }
 
         row.setTag(currentItem);
-        final CheckBox checkBox = (CheckBox) row.findViewById(R.id.checkToDoItem);
+        /*final CheckBox checkBox = (CheckBox) row.findViewById(R.id.checkToDoItem);
         checkBox.setText(currentItem.getText());
         checkBox.setChecked(false);
         checkBox.setEnabled(true);
@@ -55,6 +55,7 @@ public class ToDoItemAdapter extends ArrayAdapter<OpeningTimesItem> {
                 }
             }
         });
+        */
 
         return row;
     }
