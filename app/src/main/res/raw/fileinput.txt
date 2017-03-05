@@ -1,0 +1,14 @@
+file: file
+
+while !readLine.isEmpty {
+for x<= file.read() {
+    String timeLine = readLine,
+    get location from timeline,
+    map.put(locationx,timeLine)
+}
+bath Uni
+high street
+oldfield
+oldfield
+high street
+bath uni

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="7sp"
+    android:paddingRight="7sp"
+    android:paddingTop="25sp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/app_bar_travel"
+    tools:context="tom.smally.Travel"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    >
+
+        <TextView
+            android:text="Bus:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#010101"
+            android:textSize="15dp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/busTextView" />
+
+        <Button
+            android:text="U1 - First"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onU1Click"
+            android:background="#191c65"
+            android:textColor="#ffffff"
+            android:layout_margin="5dp"
+            android:id="@+id/newFirstButton" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="For more info: "
+                android:id="@+id/firstInfoText1"
+                android:layout_gravity="center_vertical|right"
+                android:textSize="10dp"
+                android:textStyle="italic"
+                android:layout_marginRight="5dp" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="40dp"
+                android:layout_height="17dp"
+                android:id="@+id/firstInfoButton1"
+                android:layout_gravity="right"
+                android:background="@drawable/firstlogo"
+                android:layout_marginRight="5dp"
+                android:clickable="true"
+                android:onClick="firstU1BusInfoClick" />
+        </LinearLayout>
+
+        <Button
+            android:text="U18 - Wessex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:onClick="onU1Click"
+            android:background="#191c65"
+            android:textColor="#ffffff"
+            android:layout_margin="5dp"
+            android:nestedScrollingEnabled="false"
+            android:id="@+id/newU18Button" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="For more info: "
+                android:id="@+id/wessextInfoText1"
+                android:layout_gravity="center_vertical|right"
+                android:textSize="10dp"
+                android:textStyle="italic"
+                android:layout_marginRight="5dp" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="40dp"
+                android:layout_height="17dp"
+                android:id="@+id/wessexInfoButton1"
+                android:layout_gravity="right"
+                android:background="@drawable/wessexlogo"
+                android:layout_marginRight="5dp"
+                android:clickable="true"
+                android:onClick="wessexBusInfoClick" />
+
+        </LinearLayout>
+
+        <Button
+            android:text="18 - First"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="first18Click"
+            android:background="#191c65"
+            android:textColor="#ffffff"
+            android:layout_margin="5dp"
+            android:id="@+id/oldFirstButton" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="For more info: "
+                android:id="@+id/firstInfoText2"
+                android:layout_gravity="center_vertical|right"
+                android:textSize="10dp"
+                android:textStyle="italic"
+                android:layout_marginRight="5dp" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="40dp"
+                android:layout_height="17dp"
+                android:id="@+id/firstInfoButton2"
+                android:layout_gravity="right"
+                android:background="@drawable/firstlogo"
+                android:layout_marginRight="5dp"
+                android:clickable="true"
+                android:onClick="first18BusInfoClick" />
+        </LinearLayout>
+
+        <Button
+            android:text="U18 - Wessex (old)"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="wessexOldClick"
+            android:background="#191c65"
+            android:textColor="#ffffff"
+            android:layout_margin="5dp"
+            android:id="@+id/oldU18Button" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="For more info: "
+                android:id="@+id/wessexInfoText2"
+                android:layout_gravity="center_vertical|right"
+                android:textSize="10dp"
+                android:textStyle="italic"
+                android:layout_marginRight="5dp" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="40dp"
+                android:layout_height="17dp"
+                android:id="@+id/wessexInfoButton2"
+                android:layout_gravity="right"
+                android:background="@drawable/wessexlogo"
+                android:layout_marginRight="5dp"
+                android:clickable="true"
+                android:onClick="wessexBusInfoClick" />
+        </LinearLayout>
+
+        <TextView
+            android:text="Train:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#010101"
+            android:textSize="15dp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/trainTextView" />
+        <Button
+            android:text="London Paddington"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="timeClick"
+            android:background="#191c65"
+            android:textColor="#ffffff"
+            android:layout_margin="5dp"
+            android:id="@+id/londonPButton" />
+        <Button
+            android:text="Bristol Temple Meads"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="timeClick"
+            android:background="#191c65"
+            android:textColor="#ffffff"
+            android:layout_margin="5dp"
+            android:id="@+id/bristolButton" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="For more info: "
+                android:id="@+id/firstTrainInfoText"
+                android:layout_gravity="center_vertical|right"
+                android:textSize="10dp"
+                android:textStyle="italic"
+                android:layout_marginRight="5dp" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="40dp"
+                android:layout_height="17dp"
+                android:id="@+id/firstTrainInfoButton"
+                android:layout_gravity="right"
+                android:background="@drawable/firstlogo"
+                android:layout_marginRight="5dp"
+                android:clickable="true"
+                android:onClick="firstTrainInfoClick" />
+        </LinearLayout>
+</LinearLayout>

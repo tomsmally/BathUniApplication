@@ -1,0 +1,8 @@
+term
+Week 0800 2300
+Sat 0800 2300
+Sun 0800 2300
+Holiday
+Week 0800 1800
+Sat 0800 1800
+Sun 0800 1800

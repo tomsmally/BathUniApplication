@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "664601659165",
+    "firebase_url": "https://guide-2-uni.firebaseio.com",
+    "project_id": "guide-2-uni",
+    "storage_bucket": "guide-2-uni.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:664601659165:android:ad2f74e50e8c3b56",
+        "android_client_info": {
+          "package_name": "tom.smally"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "664601659165-p4l33g82e3rcrla6n53nfnvq161d865i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDr8tDLzIyVtAAA6YTSpDShuXOwPxqrfhg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
