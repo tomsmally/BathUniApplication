@@ -1,6 +1,8 @@
 package tom.smally;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,7 +17,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class Popular extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
@@ -36,6 +48,50 @@ public class Popular extends AppCompatActivity
 
         setTitle("Timetable");
 
+        /*try {
+
+            HttpURLConnection conn = new Task();
+            System.out.println(Task.getResponseMessage());
+            int responseCode = connection.getResponseCode(); // getting the response code<br />
+            final StringBuilder output = new StringBuilder("Request URL " + url1.toString());
+                //output.append(System.getProperty("line.separator") + "Request Parameters " + urlParameters);
+                output.append(System.getProperty("line.separator")  + "Response Code " + responseCode);
+            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String line = "";
+            StringBuilder responseOutput = new StringBuilder();
+            System.out.println("output===============" + br);
+            while((line = br.readLine()) != null ) {
+                    responseOutput.append(line);
+            }
+            br.close();
+            output.append(System.getProperty("line.separator") + "Response " + System.getProperty("line.separator") + System.getProperty("line.separator") + responseOutput.toString());
+            System.out.println(output);
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        AsyncTask Task = new AsyncTask() {
+
+            @Override
+            protected HttpURLConnection doInBackground(Object[] objects) {
+
+                try {
+                    final URL url1 = new URL("https://mytimetable.bath.ac.uk/");
+                    HttpURLConnection connection = (HttpURLConnection) url1.openConnection();
+                    connection.setRequestProperty("User-Agent", "");
+                    connection.setRequestMethod("GET");
+                    connection.setDoInput(true);
+                    connection.connect();
+                    return connection;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        };*/
+
         final WebView web1 = (WebView) findViewById(R.id.webView);
         web1.getSettings().setJavaScriptEnabled(true);
         web1.getSettings().setBuiltInZoomControls(true);
@@ -45,10 +101,12 @@ public class Popular extends AppCompatActivity
         web1.loadUrl("https://mytimetable.bath.ac.uk/");
         web1.setWebViewClient(new WebViewClient() {
             Boolean pageSubmitted = false;
+
             @Override
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 Toast.makeText(Popular.this, description, Toast.LENGTH_SHORT).show();
             }
+
             @Override
             public void onPageFinished(WebView view, String url) {
                 if (!pageSubmitted) {
@@ -63,7 +121,7 @@ public class Popular extends AppCompatActivity
                             "document.getElementById('btn-submit').click();" +//login-button - only for PC login
                             "};"); //submit*/
                     pageSubmitted = true;
-                }else{
+                } else {
                     /*web1.loadUrl("javascript: {" +
                             "document.getElementById('username').value = '" + "ts690" + "';" +
                             "document.getElementById('password').value = '" + "Snowleopard2412" + "';" +
@@ -95,6 +153,7 @@ public class Popular extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
 
     @Override
     public void onBackPressed() {
@@ -160,4 +219,5 @@ public class Popular extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
