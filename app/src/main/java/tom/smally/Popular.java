@@ -49,7 +49,6 @@ public class Popular extends AppCompatActivity
         setTitle("Timetable");
 
         /*try {
-
             HttpURLConnection conn = new Task();
             System.out.println(Task.getResponseMessage());
             int responseCode = connection.getResponseCode(); // getting the response code<br />
