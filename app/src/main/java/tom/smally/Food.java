@@ -152,13 +152,10 @@ public class Food extends AppCompatActivity
         }
 
         ArrayList<TextView> textViews = new ArrayList<TextView>();
-        for(int x = 0; x <= 5; x++){
-            TextView t = (TextView) findViewById(R.id.restText1+x);
+        for(int x = 0; x <= 5; x++) {
+            TextView t = (TextView) findViewById(R.id.restText1 + x);
             textViews.add(t);
         }
-
-
-
 
         /**
          *
