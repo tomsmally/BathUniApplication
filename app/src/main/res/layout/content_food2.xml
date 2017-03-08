@@ -9,7 +9,8 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior" tools:showIn="@layout/app_bar_food"
     tools:context="tom.smally.Food"
     android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    app:layout_collapseParallaxMultiplier="1.0">
 
     <TextView
             android:id="@+id/restaurantText"
@@ -30,135 +31,144 @@
                 android:gravity="center_horizontal" >
 
                 <LinearLayout
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="75dp"
                     android:layout_gravity="left"
-                    android:onClick="onPlaceClick" >
+                    android:onClick="onPlaceClick"
+                    android:layout_height="200sp"
+                    android:elevation="10sp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:text="Restaurant 1"
+                        android:id="@+id/restText1"
+                        android:layout_height="40sp" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal"
                         android:id="@+id/imageView1"
                         android:src="@drawable/limeopen"
                         android:adjustViewBounds="true" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="Restaurant 1"
-                        android:id="@+id/restText1" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="75dp"
                     android:layout_gravity="left"
-                    android:onClick="onPlaceClick" >
+                    android:onClick="onPlaceClick"
+                    android:layout_height="200sp"
+                    android:elevation="10sp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="40sp"
+                        android:text="Restaurant 2"
+                        android:id="@+id/restText2" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal"
                         android:id="@+id/imageView2"
-                        android:src="@drawable/fourwopen"
-                        android:adjustViewBounds="true" />
-
-                    <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:text="New Text"
-                        android:id="@+id/restText2" />
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/fourwopen" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="75dp"
                     android:layout_gravity="left"
-                    android:onClick="onPlaceClick" >
+                    android:onClick="onPlaceClick"
+                    android:layout_height="200sp"
+                    android:elevation="10sp">
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="40sp"
+                        android:text="New Text"
+                        android:id="@+id/restText3" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal"
                         android:id="@+id/imageView3"
                         android:src="@drawable/paradeopen"
                         android:adjustViewBounds="true" />
-
-                    <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:text="New Text"
-                        android:id="@+id/restText3" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="75dp"
                     android:layout_gravity="left"
-                    android:onClick="onPlaceClick" >
+                    android:onClick="onPlaceClick"
+                    android:layout_height="200sp"
+                    android:elevation="10sp">
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="40sp"
+                        android:text="New Text"
+                        android:id="@+id/restText4" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal"
                         android:id="@+id/imageView4"
                         android:src="@drawable/paradeopen"
                         android:adjustViewBounds="true" />
-
-                    <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:text="New Text"
-                        android:id="@+id/restText4" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="75dp"
                     android:layout_gravity="left"
-                    android:onClick="onPlaceClick" >
+                    android:onClick="onPlaceClick"
+                    android:layout_height="200sp"
+                    android:elevation="10sp">
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="40sp"
+                        android:text="New Text"
+                        android:id="@+id/restText5" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal"
                         android:id="@+id/imageView5"
                         android:src="@drawable/paradeopen"
                         android:adjustViewBounds="true" />
-
-                    <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:text="New Text"
-                        android:id="@+id/restText5" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="75dp"
                     android:layout_gravity="left"
-                    android:onClick="onPlaceClick" >
+                    android:onClick="onPlaceClick"
+                    android:layout_height="200sp"
+                    android:elevation="10sp">
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="40sp"
+                        android:text="New Text"
+                        android:id="@+id/restText6" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal"
                         android:id="@+id/imageView6"
                         android:src="@drawable/paradeopen"
                         android:adjustViewBounds="true" />
 
-                    <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:text="New Text"
-                        android:id="@+id/restText6" />
+
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

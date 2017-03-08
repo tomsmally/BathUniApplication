@@ -28,10 +28,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class Food extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    HashMap<String, Restaurant> restaurantHashMap = new HashMap<String, Restaurant>();
 
     ViewFlipper viewFlipper;
     int viewNum = 1;
@@ -62,6 +66,7 @@ public class Food extends AppCompatActivity
             viewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper2);
             viewFlipper.showPrevious();
             viewNum --;
+            setTitle("Food");
             //unregisterReceiver(timeChangedReceiver);
             //System.out.println("reciever unregistered");
         }else {
@@ -121,136 +126,260 @@ public class Food extends AppCompatActivity
         setTitle("Campus Restaurants");
         restaurantLoad("campus");
     }
+    public void onCityRestClick(View v)
+    {
+        setTitle("City Restaurants");
+        restaurantLoad("city");
+    }
 
     public void restaurantLoad(String location)
     {
         viewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper2);
         viewFlipper.showNext();
-        viewNum ++;
+        viewNum++;
 
-        //add time to close options for each restaurant
-        int aTimeToClose;
-        int bTimeToClose;
-        int cTimeToClose;
-        if(location.equals("city")) {
-            aTimeToClose = getTimeToClose("freshtimes"); //must be int to check that >0
-            bTimeToClose = getTimeToClose("fourwtimes");
-            cTimeToClose = getTimeToClose("paradetimes");
-        }else {//city restaurant load times - change Strings
-            aTimeToClose = getTimeToClose("limetimes"); //must be int to check that >0
-            bTimeToClose = getTimeToClose("fourwtimes");
-            cTimeToClose = getTimeToClose("paradetimes");
-        }
-        String limeStatus = "<font color=\"red\">CLOSED</font>";
-        String fourWStatus = "<font color=\"red\">CLOSED</font>";
-        String paradeStatus = "<font color=\"red\">CLOSED</font>";
+        restaurantHashMap.put("LimeTree", new Restaurant("Lime Tree", false, "limetimes"));
+        restaurantHashMap.put("Fresh", new Restaurant("Fresh", false, "freshtimes"));
+        restaurantHashMap.put("FourW", new Restaurant("Four West Cafe", false, "fourwtimes"));
+        restaurantHashMap.put("Parade", new Restaurant("Parade Bar", false, "paradetimes"));
 
-        //add 'Green' "Open" or 'Red' Closed if getTimeToClose <0 or >0
-        if(aTimeToClose > 0){
-            limeStatus= "<font color=\"#47a842\">OPEN</font>";//\"green\"
-        }
-        if(bTimeToClose > 0){
-            fourWStatus = "<font color=\"#47a842\">OPEN</font>";
-        }
-        if(cTimeToClose > 0){
-            paradeStatus = "<font color=\"#47a842\">OPEN</font>";
-        }
-        //convert minutes back to hours/mins
-        String limeCloseLine = convertMinsToHourMins(aTimeToClose);
-        String fourWCloseLine = convertMinsToHourMins(bTimeToClose);
-        String paradeCloseLine = convertMinsToHourMins(cTimeToClose);
-
-        //Lime: OPEN (3hours), Parade: CLOSED ().
-        TextView closingLabel = (TextView) findViewById(R.id.restaurantText);
-        if(location.equals("campus")) {
-            closingLabel.setText(Html.fromHtml("Lime: " + limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
-            closingLabel.append(Html.fromHtml("4W Cafe: " + fourWStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + fourWCloseLine + ") " + "</font></small></i>" + ", "));
-            closingLabel.append(Html.fromHtml("Parade: " + paradeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + paradeCloseLine + ") " + "</font></small></i>" + ", "));
-        }else{//city
-            closingLabel.setText(Html.fromHtml("Nandos: " + limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
-            closingLabel.append(Html.fromHtml("GBK: " + fourWStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + fourWCloseLine + ") " + "</font></small></i>" + ", "));
-            closingLabel.append(Html.fromHtml("Sotto Sotto: " + paradeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + paradeCloseLine + ") " + "</font></small></i>" + ", "));
+        //create array list Of TextViews
+        //create array list of ImageViews
+        ArrayList<ImageView> imageViews = new ArrayList<ImageView>();
+        for(int x = 0; x <= 5; x++){
+            ImageView i = (ImageView) findViewById(R.id.imageView1+x);
+            imageViews.add(i);
         }
 
-        if(location.equals("city")) {
-            //nandos, gbk, sotto, King of Wessex (Wetherpoons), Belushis, The Cork, Peri Peri Sizzler, Same-same but different.
-            TextView r = (TextView) findViewById(R.id.restaurantText);
-            r.setVisibility(View.GONE);
-
-            ImageView i = (ImageView) findViewById(R.id.imageView1);
-            TextView t = (TextView) findViewById(R.id.restText1);
-            i.setImageResource(R.drawable.nandos);
-            t.setText("Nandos - ");
-            t.append(Html.fromHtml(limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
-
-            i = (ImageView) findViewById(R.id.imageView2);
-            t = (TextView) findViewById(R.id.restText2);
-            i.setImageResource(R.drawable.gbk);
-            t.setText("GBK - ");
-            t.append(Html.fromHtml(fourWStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + fourWCloseLine + ") " + "</font></small></i>" + ", "));
-
-            i = (ImageView) findViewById(R.id.imageView3);
-            t = (TextView) findViewById(R.id.restText3);
-            i.setImageResource(R.drawable.sotto);
-            t.setText("Sotto Sotto - ");
-            t.append(Html.fromHtml(paradeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + paradeCloseLine + ") " + "</font></small></i>" + ", "));
-
-            i = (ImageView) findViewById(R.id.imageView4);
-            t = (TextView) findViewById(R.id.restText4);
-            i.setImageResource(R.drawable.sotto);
-            t.setText("King of Wessex (Wetherspoons) - ");
-            t.append(Html.fromHtml(limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
-
-            i = (ImageView) findViewById(R.id.imageView5);
-            t = (TextView) findViewById(R.id.restText5);
-            i.setImageResource(R.drawable.sotto);
-            t.setText("Belushi's - ");
-            t.append(Html.fromHtml(limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
-
-            i = (ImageView) findViewById(R.id.imageView6);
-            t = (TextView) findViewById(R.id.restText6);
-            i.setImageResource(R.drawable.sotto);
-            t.setText("The Cork -");
-            t.append(Html.fromHtml(limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
+        ArrayList<TextView> textViews = new ArrayList<TextView>();
+        for(int x = 0; x <= 5; x++){
+            TextView t = (TextView) findViewById(R.id.restText1+x);
+            textViews.add(t);
         }
-        else if(location.equals("campus"))
-        {
-            TextView r = (TextView) findViewById(R.id.restaurantText);
-            r.setVisibility(View.GONE);
 
-            TextView t = (TextView) findViewById(R.id.restText1);
-            t.setText("Lime - ");
-            t.append(Html.fromHtml(limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
 
-            t = (TextView) findViewById(R.id.restText2);
-            t.setText("4 West Cafe - ");
-            t.append(Html.fromHtml(fourWStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + fourWCloseLine + ") " + "</font></small></i>" + ", "));
 
-            t = (TextView) findViewById(R.id.restText3);
-            t.setText("Parade - ");
-            t.append(Html.fromHtml(paradeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + paradeCloseLine + ") " + "</font></small></i>" + ", "));
 
-            t = (TextView) findViewById(R.id.restText4);
-            t.setText("King of Wessex (Wetherspoons) - ");
-            t.append(Html.fromHtml(limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
+        /**
+         *
+         *
+         *
+         *
+         * NEW CODE!!!! LOADS THE RESTAURANT AND PUTS INTO THE UI!!!!!!!
+         *
+         *
+         *
+         *
+         *
+         */
+        for (String key : restaurantHashMap.keySet()) {
 
-            t = (TextView) findViewById(R.id.restText5);
-            t.setText("Belushi's - ");
-            t.append(Html.fromHtml(limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
+            Integer restNumber = 0;
 
-            t = (TextView) findViewById(R.id.restText6);
-            t.setText("The Cork -");
-            t.append(Html.fromHtml(limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
+            Restaurant restaurant = restaurantHashMap.get(key);
+            Integer timeToClose = getTimeToClose(restaurant.restFileName);
+            restaurant.setRestTimeToClose(timeToClose);
+            //restaurantHashMap.remove(key);
+            String status = "<font color=\"red\">CLOSED</font>";
+
+            if (timeToClose > 0) {
+                restaurant.restOpenStatus = true;
+                status = "<font color=\"#47a842\">OPEN</font>";
+            }
+            restaurantHashMap.put(key, restaurant);
+
+            String closeString = convertMinsToHourMins(timeToClose);
+
+            //This IS NOT the correct closingLabel to use for the status!
+            TextView closingLabel = (TextView) findViewById(R.id.restaurantText);
+            closingLabel.setText(Html.fromHtml("Lime: " + status + "<i><small><font color=\"#c5c5c5\">" + " (" + closeString + ") " + "</font></small></i>" + ", "));
+
+            ImageView i = imageViews.get(restNumber);
+            TextView t = textViews.get(restNumber);
+            i.setImageResource(restaurant.restDrawable);
+            t.setText(restaurant.restTitle);
+            t.append(" - "+ Html.fromHtml(status + "<i><small><font color=\"#c5c5c5\">" + " (" + closeString + ") " + "</font></small></i>" + ", "));
+
+            restNumber ++;
         }
+
+        /**
+         *
+         *
+         *
+         *
+         *
+         *
+         *
+         *
+         *
+         *
+         *
+         */
+
+
+        /**
+         *
+         *  DEPRECIATED CODE TO ADD RESTAURANT TO THE UI!!!!
+         *
+         *
+         *  ^^^^ COPY THE UI SPECIFICATION INFORMATION INTO THE CODE ABOVE ^^^^
+         *
+         *
+         *
+         * //add time to close options for each restaurant
+         int aTimeToClose;
+         int bTimeToClose;
+         int cTimeToClose;
+         if(location.equals("city")) {
+         aTimeToClose = getTimeToClose("freshtimes"); //must be int to check that >0
+         bTimeToClose = getTimeToClose("fourwtimes");
+         cTimeToClose = getTimeToClose("paradetimes");
+         }else {//city restaurant load times - change Strings
+         aTimeToClose = getTimeToClose("limetimes"); //must be int to check that >0
+         bTimeToClose = getTimeToClose("fourwtimes");
+         cTimeToClose = getTimeToClose("paradetimes");
+         }
+
+         String limeStatus = "<font color=\"red\">CLOSED</font>";
+         String fourWStatus = "<font color=\"red\">CLOSED</font>";
+         String paradeStatus = "<font color=\"red\">CLOSED</font>";
+         //add 'Green' "Open" or 'Red' Closed if getTimeToClose <0 or >0
+         if(aTimeToClose > 0){
+         restaurantStatus.put("LimeTree",true);
+         limeStatus= "<font color=\"#47a842\">OPEN</font>";
+         }
+         if(bTimeToClose > 0){
+         restaurantStatus.put("FourW",true);
+         fourWStatus = "<font color=\"#47a842\">OPEN</font>";
+         }
+         if(cTimeToClose > 0){
+         restaurantStatus.put("ParadeBar",true);
+         paradeStatus = "<font color=\"#47a842\">OPEN</font>";
+         }
+
+         //Lime: OPEN (3hours), Parade: CLOSED ().
+         TextView closingLabel = (TextView) findViewById(R.id.restaurantText);
+         if(location.equals("campus")) {
+         closingLabel.setText(Html.fromHtml("Lime: " + limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
+         closingLabel.append(Html.fromHtml("4W Cafe: " + fourWStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + fourWCloseLine + ") " + "</font></small></i>" + ", "));
+         closingLabel.append(Html.fromHtml("Parade: " + paradeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + paradeCloseLine + ") " + "</font></small></i>" + ", "));
+         }else{//city
+         closingLabel.setText(Html.fromHtml("Nandos: " + limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
+         closingLabel.append(Html.fromHtml("GBK: " + fourWStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + fourWCloseLine + ") " + "</font></small></i>" + ", "));
+         closingLabel.append(Html.fromHtml("Sotto Sotto: " + paradeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + paradeCloseLine + ") " + "</font></small></i>" + ", "));
+         }
+
+         //convert minutes back to hours/mins
+         String limeCloseLine = convertMinsToHourMins(aTimeToClose);
+         String fourWCloseLine = convertMinsToHourMins(bTimeToClose);
+         String paradeCloseLine = convertMinsToHourMins(cTimeToClose);
+
+
+         if(location.equals("city")) {
+         //nandos, gbk, sotto, King of Wessex (Wetherpoons), Belushis, The Cork, Peri Peri Sizzler, Same-same but different.
+         TextView r = (TextView) findViewById(R.id.restaurantText);
+         r.setVisibility(View.GONE);
+
+         ImageView i = (ImageView) findViewById(R.id.imageView1);
+         TextView t = (TextView) findViewById(R.id.restText1);
+         i.setImageResource(R.drawable.nandos);
+         t.setText("Nandos - ");
+         t.append(Html.fromHtml(limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
+
+         i = (ImageView) findViewById(R.id.imageView2);
+         t = (TextView) findViewById(R.id.restText2);
+         i.setImageResource(R.drawable.gbk);
+         t.setText("GBK - ");
+         t.append(Html.fromHtml(fourWStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + fourWCloseLine + ") " + "</font></small></i>" + ", "));
+
+         i = (ImageView) findViewById(R.id.imageView3);
+         t = (TextView) findViewById(R.id.restText3);
+         i.setImageResource(R.drawable.sotto);
+         t.setText("Sotto Sotto - ");
+         t.append(Html.fromHtml(paradeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + paradeCloseLine + ") " + "</font></small></i>" + ", "));
+
+         i = (ImageView) findViewById(R.id.imageView4);
+         t = (TextView) findViewById(R.id.restText4);
+         i.setImageResource(R.drawable.sotto);
+         t.setText("King of Wessex (Wetherspoons) - ");
+         t.append(Html.fromHtml(limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
+
+         i = (ImageView) findViewById(R.id.imageView5);
+         t = (TextView) findViewById(R.id.restText5);
+         i.setImageResource(R.drawable.sotto);
+         t.setText("Belushi's - ");
+         t.append(Html.fromHtml(limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
+
+         i = (ImageView) findViewById(R.id.imageView6);
+         t = (TextView) findViewById(R.id.restText6);
+         i.setImageResource(R.drawable.sotto);
+         t.setText("The Cork -");
+         t.append(Html.fromHtml(limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
+         }
+         else if(location.equals("campus"))
+         {
+         TextView r = (TextView) findViewById(R.id.restaurantText);
+         r.setVisibility(View.GONE);
+
+         TextView t = (TextView) findViewById(R.id.restText1);
+         t.setText("Lime - ");
+         t.append(Html.fromHtml(limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
+         ImageView i = (ImageView) findViewById(R.id.imageView1);
+         i.setImageResource(R.drawable.limeopen);
+
+         t = (TextView) findViewById(R.id.restText2);
+         t.setText("4 West Cafe - ");
+         t.append(Html.fromHtml(fourWStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + fourWCloseLine + ") " + "</font></small></i>" + ", "));
+         i = (ImageView) findViewById(R.id.imageView2);
+         i.setImageResource(R.drawable.fourwopen);
+
+         t = (TextView) findViewById(R.id.restText3);
+         t.setText("Parade - ");
+         t.append(Html.fromHtml(paradeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + paradeCloseLine + ") " + "</font></small></i>" + ", "));
+         i = (ImageView) findViewById(R.id.imageView3);
+         i.setImageResource(R.drawable.paradeopen);
+
+         t = (TextView) findViewById(R.id.restText4);
+         t.setText("King of Wessex (Wetherspoons) - ");
+         t.append(Html.fromHtml(limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
+         i = (ImageView) findViewById(R.id.imageView4);
+         i.setImageResource(R.drawable.nandos);
+
+         t = (TextView) findViewById(R.id.restText5);
+         t.setText("Belushi's - ");
+         t.append(Html.fromHtml(limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
+         i = (ImageView) findViewById(R.id.imageView5);
+         i.setImageResource(R.drawable.nandos);
+
+         t = (TextView) findViewById(R.id.restText6);
+         t.setText("The Cork -");
+         t.append(Html.fromHtml(limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
+         i = (ImageView) findViewById(R.id.imageView6);
+         i.setImageResource(R.drawable.nandos);
+         }
+
+         /**
+         *
+         *
+         * ^^^^ DEPRECIATED CODE!!! ^^^^
+         *
+         *
+         *
+         */
+
+
+        //end of restaurantLoad method!
     }
 
-    public void onPlaceClick(View v)
-    {
-        setTitle("Fresh");
-        viewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper2);
-        viewFlipper.showNext();
-        viewNum ++;
-        clubLoadText("Fresh","OPEN",R.drawable.freshimg,"","","",
+
+        public void onPlaceClick(View v)
+        {
+            setTitle("Fresh");
+            viewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper2);
+            viewFlipper.showNext();
+            viewNum ++;
+            clubLoadText("Fresh","OPEN",R.drawable.freshimg,"","","",
                 "Monday &#160;&#160;&#160; 7:30 a.m. – 10:30 p.m.<br/>" +
                         "Tuesday &#160;&#160;&#160; 7:30 a.m. – 10:30 p.m.<br/>" +
                         "Wednesday &#160;&#160;&#160; 7:30 a.m. – 10:30 p.m.<br/>" +
@@ -384,8 +513,26 @@ public class Food extends AppCompatActivity
     }
     
     @SuppressWarnings("resource")
-    public int getTimeToClose(String fileName)
+    public int getTimeToClose(String restaurantID)
     {
+        String fileName = restaurantHashMap.get(restaurantID).restFileName;
+
+        /*String fileName = "limetimes";
+        switch (restaurantID){
+            case "LimeTree":
+                fileName = "limetimes";
+                break;
+            case "FourW":
+                fileName = "fourwtimes";
+                break;
+            case "Parade":
+                fileName = "paradetimes";
+                break;
+            case "Fresh":
+                fileName = "freshtimes";
+                break;
+        }*/
+
         String[] times = new String[6];//week,sat&sun
         try {
             InputStream in = getResources().openRawResource(

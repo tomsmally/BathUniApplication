@@ -52,6 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="#191c65"
+            android:onClick="onCityRestClick"
             android:textColor="#ffffff" />
 
         <Button
