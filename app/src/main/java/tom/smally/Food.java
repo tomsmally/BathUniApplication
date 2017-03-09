@@ -1,12 +1,8 @@
 package tom.smally;
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -20,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
@@ -132,245 +129,152 @@ public class Food extends AppCompatActivity
         restaurantLoad("city");
     }
 
+    public HashMap<String, Restaurant> loadRestMapFromDB(){
+
+        //WILL LOAD FROM DATABASE SOON!!
+        HashMap<String, Restaurant> tempHashMap = new HashMap<>();
+        tempHashMap.put("LimeTree", new Restaurant("Lime Tree", false, "limetimes","campus"));
+        tempHashMap.put("Fresh", new Restaurant("Fresh", false, "freshtimes","campus"));
+        tempHashMap.put("FourW", new Restaurant("Four West Cafe", false, "fourwtimes","campus"));
+        tempHashMap.put("Parade", new Restaurant("Parade Bar", false, "paradetimes","campus"));
+        tempHashMap.put("Starbucks", new Restaurant("Starbucks Coffee", false, "paradetimes","campus"));
+        tempHashMap.put("BurgerBar", new Restaurant("Burger Bar", false, "paradetimes","campus"));
+
+        tempHashMap.put("Nandos", new Restaurant("Nandos", false, "nandostimes","city"));
+        tempHashMap.put("GBK", new Restaurant("GBK", false, "gbktimes","city"));
+        tempHashMap.put("SottoSotto", new Restaurant("Sotto Sotto", false, "sottosottotimes","city"));
+        tempHashMap.put("KingOfWessex", new Restaurant("King Of Wessex", false, "kingofwessextimes","city"));
+        tempHashMap.put("Belushis", new Restaurant("Belushi\'s", false, "belushistimes","city"));
+        tempHashMap.put("Cork", new Restaurant("The Cork", false, "corktimes","city"));
+
+        tempHashMap = loadRestDrawablesFromDB(tempHashMap);
+
+        return tempHashMap;
+    }
+
     public void restaurantLoad(String location)
     {
         viewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper2);
         viewFlipper.showNext();
         viewNum++;
 
-        restaurantHashMap.put("LimeTree", new Restaurant("Lime Tree", false, "limetimes"));
-        restaurantHashMap.put("Fresh", new Restaurant("Fresh", false, "freshtimes"));
-        restaurantHashMap.put("FourW", new Restaurant("Four West Cafe", false, "fourwtimes"));
-        restaurantHashMap.put("Parade", new Restaurant("Parade Bar", false, "paradetimes"));
-
-        //create array list Of TextViews
-        //create array list of ImageViews
-        ArrayList<ImageView> imageViews = new ArrayList<ImageView>();
-        for(int x = 0; x <= 5; x++){
-            ImageView i = (ImageView) findViewById(R.id.imageView1+x);
-            imageViews.add(i);
-        }
-
-        ArrayList<TextView> textViews = new ArrayList<TextView>();
-        for(int x = 0; x <= 5; x++) {
-            TextView t = (TextView) findViewById(R.id.restText1 + x);
-            textViews.add(t);
-        }
+        restaurantHashMap = loadRestMapFromDB();
 
         /**
-         *
-         *
-         *
-         *
-         * NEW CODE!!!! LOADS THE RESTAURANT AND PUTS INTO THE UI!!!!!!!
-         *
-         *
-         *
-         *
-         *
+         * Write this as a list of class "RestaurantList" that stores ArrayList of Linear layout + image views
+         * + text views + "Restaurant" for UI updating.
          */
-        for (String key : restaurantHashMap.keySet()) {
+        ArrayList<ImageView> imageViews = new ArrayList<ImageView>();
+        ArrayList<TextView> textViews = new ArrayList<TextView>();
+        LinearLayout yourLayout = (LinearLayout) findViewById(R.id.linear_layout_rest_list);
 
-            Integer restNumber = 0;
+        int listLength = 0;
+
+        for (int i = 0; i < yourLayout .getChildCount(); i++) {
+            if (yourLayout.getChildAt(i) instanceof LinearLayout) {
+                LinearLayout subView = (LinearLayout) yourLayout.getChildAt(i);
+                for (int j = 0; j < subView .getChildCount(); j++) {
+                    View subsubView = subView.getChildAt(j);
+
+                    if (subsubView instanceof ImageView) {
+                        ImageView imageView = (ImageView) subsubView;
+                        imageViews.add(imageView);
+                    }else if(subsubView instanceof TextView){
+                        TextView textView = (TextView) subsubView;
+                        textViews.add(textView);
+                    }
+                }
+                listLength ++;
+            }
+        }
+
+       //This IS NOT the correct closingLabel to use for the status, so set Visibility GONE.
+        TextView closingLabel = (TextView) findViewById(R.id.restaurantText);
+        closingLabel.setVisibility(View.GONE);
+
+        Integer restNumber = 0;
+
+        for(String key : restaurantHashMap.keySet()) {
 
             Restaurant restaurant = restaurantHashMap.get(key);
-            Integer timeToClose = getTimeToClose(restaurant.restFileName);
-            restaurant.setRestTimeToClose(timeToClose);
-            //restaurantHashMap.remove(key);
-            String status = "<font color=\"red\">CLOSED</font>";
+            if (location.equals(restaurant.getRestLocation()) && restNumber < listLength) {
+                Integer timeToClose = getTimeToClose(restaurant.getRestFileName());
+                restaurant.setRestTimeToClose(timeToClose);
 
-            if (timeToClose > 0) {
-                restaurant.restOpenStatus = true;
-                status = "<font color=\"#47a842\">OPEN</font>";
+                String status = "<font color=\"red\">CLOSED</font>";
+                if (timeToClose > 0) {
+                    restaurant.restOpenStatus = true;
+                    status = "<font color=\"#47a842\">OPEN</font>";
+                }
+                String closeString = restaurant.getRestTimeToClose_InHourMins();
+
+                restaurantHashMap.put(key, restaurant);
+
+                try {
+                    ImageView i = imageViews.get(restNumber);
+                    TextView t = textViews.get(restNumber);
+                    i.setImageResource(restaurant.getRestDrawable());
+                    t.setText(restaurant.getRestTitle());
+                    t.append(" - " + Html.fromHtml(status + "<i><small><font color=\"#c5c5c5\">" + " (" + closeString + ") " + "</font></small></i>" + ", "));
+                } catch (IndexOutOfBoundsException e) {
+                    e.printStackTrace();
+                }
+                restNumber++;
             }
-            restaurantHashMap.put(key, restaurant);
-
-            String closeString = convertMinsToHourMins(timeToClose);
-
-            //This IS NOT the correct closingLabel to use for the status!
-            TextView closingLabel = (TextView) findViewById(R.id.restaurantText);
-            closingLabel.setText(Html.fromHtml("Lime: " + status + "<i><small><font color=\"#c5c5c5\">" + " (" + closeString + ") " + "</font></small></i>" + ", "));
-
-            ImageView i = imageViews.get(restNumber);
-            TextView t = textViews.get(restNumber);
-            i.setImageResource(restaurant.restDrawable);
-            t.setText(restaurant.restTitle);
-            t.append(" - "+ Html.fromHtml(status + "<i><small><font color=\"#c5c5c5\">" + " (" + closeString + ") " + "</font></small></i>" + ", "));
-
-            restNumber ++;
         }
+    }
 
-        /**
-         *
-         *
-         *
-         *
-         *
-         *
-         *
-         *
-         *
-         *
-         *
-         */
+    private HashMap<String, Restaurant> loadRestDrawablesFromDB(HashMap<String, Restaurant> restaurantHashMap)
+    {
+        HashMap<String, Restaurant> tempHashMap = new HashMap<>();
 
+        for (String key : restaurantHashMap.keySet()) {
+            Restaurant rest = restaurantHashMap.get(key);
+            int drawableID = R.drawable.limeopen;
 
-        /**
-         *
-         *  DEPRECIATED CODE TO ADD RESTAURANT TO THE UI!!!!
-         *
-         *
-         *  ^^^^ COPY THE UI SPECIFICATION INFORMATION INTO THE CODE ABOVE ^^^^
-         *
-         *
-         *
-         * //add time to close options for each restaurant
-         int aTimeToClose;
-         int bTimeToClose;
-         int cTimeToClose;
-         if(location.equals("city")) {
-         aTimeToClose = getTimeToClose("freshtimes"); //must be int to check that >0
-         bTimeToClose = getTimeToClose("fourwtimes");
-         cTimeToClose = getTimeToClose("paradetimes");
-         }else {//city restaurant load times - change Strings
-         aTimeToClose = getTimeToClose("limetimes"); //must be int to check that >0
-         bTimeToClose = getTimeToClose("fourwtimes");
-         cTimeToClose = getTimeToClose("paradetimes");
-         }
-
-         String limeStatus = "<font color=\"red\">CLOSED</font>";
-         String fourWStatus = "<font color=\"red\">CLOSED</font>";
-         String paradeStatus = "<font color=\"red\">CLOSED</font>";
-         //add 'Green' "Open" or 'Red' Closed if getTimeToClose <0 or >0
-         if(aTimeToClose > 0){
-         restaurantStatus.put("LimeTree",true);
-         limeStatus= "<font color=\"#47a842\">OPEN</font>";
-         }
-         if(bTimeToClose > 0){
-         restaurantStatus.put("FourW",true);
-         fourWStatus = "<font color=\"#47a842\">OPEN</font>";
-         }
-         if(cTimeToClose > 0){
-         restaurantStatus.put("ParadeBar",true);
-         paradeStatus = "<font color=\"#47a842\">OPEN</font>";
-         }
-
-         //Lime: OPEN (3hours), Parade: CLOSED ().
-         TextView closingLabel = (TextView) findViewById(R.id.restaurantText);
-         if(location.equals("campus")) {
-         closingLabel.setText(Html.fromHtml("Lime: " + limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
-         closingLabel.append(Html.fromHtml("4W Cafe: " + fourWStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + fourWCloseLine + ") " + "</font></small></i>" + ", "));
-         closingLabel.append(Html.fromHtml("Parade: " + paradeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + paradeCloseLine + ") " + "</font></small></i>" + ", "));
-         }else{//city
-         closingLabel.setText(Html.fromHtml("Nandos: " + limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
-         closingLabel.append(Html.fromHtml("GBK: " + fourWStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + fourWCloseLine + ") " + "</font></small></i>" + ", "));
-         closingLabel.append(Html.fromHtml("Sotto Sotto: " + paradeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + paradeCloseLine + ") " + "</font></small></i>" + ", "));
-         }
-
-         //convert minutes back to hours/mins
-         String limeCloseLine = convertMinsToHourMins(aTimeToClose);
-         String fourWCloseLine = convertMinsToHourMins(bTimeToClose);
-         String paradeCloseLine = convertMinsToHourMins(cTimeToClose);
-
-
-         if(location.equals("city")) {
-         //nandos, gbk, sotto, King of Wessex (Wetherpoons), Belushis, The Cork, Peri Peri Sizzler, Same-same but different.
-         TextView r = (TextView) findViewById(R.id.restaurantText);
-         r.setVisibility(View.GONE);
-
-         ImageView i = (ImageView) findViewById(R.id.imageView1);
-         TextView t = (TextView) findViewById(R.id.restText1);
-         i.setImageResource(R.drawable.nandos);
-         t.setText("Nandos - ");
-         t.append(Html.fromHtml(limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
-
-         i = (ImageView) findViewById(R.id.imageView2);
-         t = (TextView) findViewById(R.id.restText2);
-         i.setImageResource(R.drawable.gbk);
-         t.setText("GBK - ");
-         t.append(Html.fromHtml(fourWStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + fourWCloseLine + ") " + "</font></small></i>" + ", "));
-
-         i = (ImageView) findViewById(R.id.imageView3);
-         t = (TextView) findViewById(R.id.restText3);
-         i.setImageResource(R.drawable.sotto);
-         t.setText("Sotto Sotto - ");
-         t.append(Html.fromHtml(paradeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + paradeCloseLine + ") " + "</font></small></i>" + ", "));
-
-         i = (ImageView) findViewById(R.id.imageView4);
-         t = (TextView) findViewById(R.id.restText4);
-         i.setImageResource(R.drawable.sotto);
-         t.setText("King of Wessex (Wetherspoons) - ");
-         t.append(Html.fromHtml(limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
-
-         i = (ImageView) findViewById(R.id.imageView5);
-         t = (TextView) findViewById(R.id.restText5);
-         i.setImageResource(R.drawable.sotto);
-         t.setText("Belushi's - ");
-         t.append(Html.fromHtml(limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
-
-         i = (ImageView) findViewById(R.id.imageView6);
-         t = (TextView) findViewById(R.id.restText6);
-         i.setImageResource(R.drawable.sotto);
-         t.setText("The Cork -");
-         t.append(Html.fromHtml(limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
-         }
-         else if(location.equals("campus"))
-         {
-         TextView r = (TextView) findViewById(R.id.restaurantText);
-         r.setVisibility(View.GONE);
-
-         TextView t = (TextView) findViewById(R.id.restText1);
-         t.setText("Lime - ");
-         t.append(Html.fromHtml(limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
-         ImageView i = (ImageView) findViewById(R.id.imageView1);
-         i.setImageResource(R.drawable.limeopen);
-
-         t = (TextView) findViewById(R.id.restText2);
-         t.setText("4 West Cafe - ");
-         t.append(Html.fromHtml(fourWStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + fourWCloseLine + ") " + "</font></small></i>" + ", "));
-         i = (ImageView) findViewById(R.id.imageView2);
-         i.setImageResource(R.drawable.fourwopen);
-
-         t = (TextView) findViewById(R.id.restText3);
-         t.setText("Parade - ");
-         t.append(Html.fromHtml(paradeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + paradeCloseLine + ") " + "</font></small></i>" + ", "));
-         i = (ImageView) findViewById(R.id.imageView3);
-         i.setImageResource(R.drawable.paradeopen);
-
-         t = (TextView) findViewById(R.id.restText4);
-         t.setText("King of Wessex (Wetherspoons) - ");
-         t.append(Html.fromHtml(limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
-         i = (ImageView) findViewById(R.id.imageView4);
-         i.setImageResource(R.drawable.nandos);
-
-         t = (TextView) findViewById(R.id.restText5);
-         t.setText("Belushi's - ");
-         t.append(Html.fromHtml(limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
-         i = (ImageView) findViewById(R.id.imageView5);
-         i.setImageResource(R.drawable.nandos);
-
-         t = (TextView) findViewById(R.id.restText6);
-         t.setText("The Cork -");
-         t.append(Html.fromHtml(limeStatus + "<i><small><font color=\"#c5c5c5\">" + " (" + limeCloseLine + ") " + "</font></small></i>" + ", "));
-         i = (ImageView) findViewById(R.id.imageView6);
-         i.setImageResource(R.drawable.nandos);
-         }
-
-         /**
-         *
-         *
-         * ^^^^ DEPRECIATED CODE!!! ^^^^
-         *
-         *
-         *
-         */
-
-
-        //end of restaurantLoad method!
+            switch(key){
+                case "LimeTree":
+                    drawableID = R.drawable.limeopen;
+                    break;
+                case "Fresh":
+                    drawableID = R.drawable.freshimg;
+                    break;
+                case "FourW":
+                    drawableID = R.drawable.fourwopen;
+                    break;
+                case "Parade":
+                    drawableID = R.drawable.paradeopen;
+                    break;
+                case "Nandos":
+                    drawableID = R.drawable.nandos;
+                    break;
+                case "GBK":
+                    drawableID = R.drawable.gbk;
+                    break;
+                case "SottoSotto":
+                    drawableID = R.drawable.sotto;
+                    break;
+                case "KingOfWessex":
+                    drawableID = R.drawable.kingofwessex;
+                    break;
+                case "Belushis":
+                    drawableID = R.drawable.nandos;
+                    break;
+                case "Starbucks":
+                    drawableID = R.drawable.nandos;
+                    break;
+                case "BurgerBar":
+                    drawableID = R.drawable.sotto;
+                    break;
+            }
+            rest.setRestDrawable(drawableID);
+            tempHashMap.put(key,rest);
+        }
+        return tempHashMap;
     }
 
 
-        public void onPlaceClick(View v)
+    public void onPlaceClick(View v)
         {
             setTitle("Fresh");
             viewFlipper = (ViewFlipper) findViewById(R.id.viewFlipper2);
@@ -510,10 +414,9 @@ public class Food extends AppCompatActivity
     }
     
     @SuppressWarnings("resource")
-    public int getTimeToClose(String restaurantID)
+    public int getTimeToClose(String fileName)
     {
-        String fileName = restaurantHashMap.get(restaurantID).restFileName;
-
+        //String fileName = restaurantHashMap.get(restaurantID).restFileName;
         /*String fileName = "limetimes";
         switch (restaurantID){
             case "LimeTree":

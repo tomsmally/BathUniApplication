@@ -28,7 +28,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="center_horizontal" >
+                android:gravity="center_horizontal"
+                android:id="@+id/linear_layout_rest_list">
 
                 <LinearLayout
                     android:orientation="vertical"
