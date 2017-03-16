@@ -7,6 +7,8 @@
         android:targetSdkVersion="23" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -143,10 +145,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key"
-            />
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCgyhI9jg7FZm2J-MWFjvu7Fq6n5Gh7wrM"
             />
 
 

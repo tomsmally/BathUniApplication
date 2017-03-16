@@ -56,6 +56,10 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import static com.microsoft.windowsazure.mobileservices.table.query.QueryOperations.val;
+import android.support.multidex.MultiDexApplication;
+import android.util.Log;
+
+import com.amazonaws.mobile.AWSMobileClient;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -97,36 +101,14 @@ public class MainActivity extends AppCompatActivity
             //Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             //MainActivity.this.startActivity(intent);
 
+        // Initialize the AWS Mobile Client
+        AWSMobileClient.initializeMobileClientIfNecessary(getApplicationContext());
+
         //BUT FOR NOW:
         Intent intent = new Intent(MainActivity.this, activity_home.class);
         //MainActivity.this.startActivity(intent);
         startActivity(intent);
         onBackPressed();
-
-        /************  GOOGLE - FIREBASE DATABASE   ****************************
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        // Write to database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-        myRef.setValue("Hello, World!");
-        // Read from the database
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                System.out.println("Value is: " + value);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                System.out.println("Failed to read value.");
-                //Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
-         */
     }
 
     public void setCredentials(String email, String username, String password){
