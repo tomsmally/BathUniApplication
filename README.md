@@ -1,6 +1,6 @@
-# BathUniApplication
+# Bath Uni Application
 ## Overview
-University app that provides info, help, directions, timetables, and other uses for students/ visitors at the University Of Bath (for now)
+University app that provides info, help, directions, timetables, and other uses for students/ visitors at the University Of Bath.
 
 ## University
 ### Timetable
