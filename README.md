@@ -1,6 +1,10 @@
 # Bath Uni Application
 ## Overview
 University app that provides info, help, directions, timetables, and other uses for students/ visitors at the University Of Bath.
+## Installation
+Simply pull the project and all content should be accessible in the current format. No plugin installation required.
+
+If you're having problem with Gradle when you pull the project, try reducing the "Path" size/ length. Either by pulling the project to "C://" or another reduced Path.
 
 ## University
 ### Timetable
