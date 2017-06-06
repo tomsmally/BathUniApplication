@@ -56,10 +56,10 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import static com.microsoft.windowsazure.mobileservices.table.query.QueryOperations.val;
-import android.support.multidex.MultiDexApplication;
+//import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
-import com.amazonaws.mobile.AWSMobileClient;
+//import com.amazonaws.mobile.AWSMobileClient;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity
             //MainActivity.this.startActivity(intent);
 
         // Initialize the AWS Mobile Client
-        AWSMobileClient.initializeMobileClientIfNecessary(getApplicationContext());
+        //AWSMobileClient.initializeMobileClientIfNecessary(getApplicationContext());
 
         //BUT FOR NOW:
         Intent intent = new Intent(MainActivity.this, activity_home.class);

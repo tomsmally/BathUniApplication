@@ -8,4 +8,11 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="box_size">100dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+
+    <!--Grid Layout for Fragment View-->
+    <dimen name="new_row_padding_y">150dp</dimen>
+    <dimen name="centre_row_padding_x">155dp</dimen>
+    <dimen name="right_row_padding_x">280dp</dimen>
+
 </resources>

@@ -1,5 +1,5 @@
 package tom.smally;
-
+/*
 import android.util.Log;
 
 import com.amazonaws.AmazonClientException;
@@ -38,3 +38,4 @@ public class AWSDBApi {
     }
 
 }
+*/

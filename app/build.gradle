@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    compileSdkVersion 25
+    buildToolsVersion '25.0.3'
 
     defaultConfig {
         applicationId "tom.smally"
         minSdkVersion 15
-        targetSdkVersion 23
+        targetSdkVersion 25
         versionCode 6
         versionName "2.1"
 
@@ -29,22 +29,27 @@ dependencies {
     compile 'com.google.firebase:firebase-core:9.0.2'
     compile 'com.google.firebase:firebase-database:9.0.2'
     compile 'com.google.firebase:firebase-messaging:9.0.2'*/
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:design:23.4.0'
-    compile 'com.google.android.gms:play-services:10.0.1'
-    testCompile 'junit:junit:4.12'
-
+    
 
     //AWS integration:
-    compile('com.amazonaws:aws-android-sdk-core:2.3.9')
     // add the DynamoDB SDK and DynamoDB Object Mapper dependency
-    compile('com.amazonaws:aws-android-sdk-ddb:2.3.9')
-    compile('com.amazonaws:aws-android-sdk-ddb-mapper:2.3.9')
     // add the S3 SDK dependency
-    compile('com.amazonaws:aws-android-sdk-s3:2.3.9')
+    //compile 'com.amazonaws:aws-android-sdk-core:2.3.9'
+    //compile 'com.amazonaws:aws-android-sdk-ddb:2.3.9'
+    //compile 'com.amazonaws:aws-android-sdk-ddb-mapper:2.3.9'
+    //compile 'com.amazonaws:aws-android-sdk-s3:2.3.9'
 
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
+    //compile 'com.google.android.gms:play-services:10.2.6'
+    compile 'com.google.android.gms:play-services-maps:10.2.6'
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }
 
 apply plugin: 'com.google.gms.google-services'
+
 
 

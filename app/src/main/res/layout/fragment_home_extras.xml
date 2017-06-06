@@ -102,30 +102,34 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Library"
                     android:id="@+id/textView2"
-                    android:layout_gravity="left"
+                    android:layout_gravity="start"
                     android:layout_margin="5sp" />
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="2sp"
+                    android:layout_height="12sp"
                     android:id="@+id/imageView17"
                     android:layout_gravity="center_horizontal"
-                    android:background="@drawable/actionbar"
-                    android:layout_marginTop="5sp" />
+                    android:background="@drawable/actionbar"/>
 
-                <LinearLayout
+                <android.support.constraint.ConstraintLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="left">
+                    android:gravity="left"
+                    android:padding="5dp">
 
                     <LinearLayout
                         android:orientation="vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="#ffffff"
-                        android:layout_gravity="center"
-                        android:layout_margin="5sp" >
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="8dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:id="@+id/linearLayout5">
 
                         <Button
                             android:id="@+id/button9"
@@ -160,8 +164,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="#ffffff"
-                        android:layout_gravity="center"
-                        android:layout_margin="5sp" >
+                        app:layout_constraintLeft_toRightOf="@+id/linearLayout5"
+                        android:layout_marginLeft="8dp"
+                        android:id="@+id/linearLayout6"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginTop="8dp">
 
                         <Button
                             android:id="@+id/button10"
@@ -194,10 +201,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="#ffffff"
-                        android:layout_gravity="center"
-                        android:layout_margin="5sp"
                         android:onClick="onSocialClick"
-                        android:clickable="true">
+                        android:clickable="true"
+                        app:layout_constraintLeft_toRightOf="@+id/linearLayout6"
+                        android:layout_marginLeft="8dp"
+                        android:id="@+id/linearLayout7"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginTop="8dp">
 
                         <Button
                             android:id="@+id/button13"
@@ -230,42 +240,45 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:orientation="vertical"
+                        android:id="@+id/linearLayout4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="8dp"
                         android:background="#ffffff"
-                        android:layout_gravity="center"
-                        android:layout_margin="5sp" >
+                        android:orientation="vertical"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
 
                         <Button
                             android:id="@+id/button16"
-                            android:textSize="15sp"
                             android:layout_width="@dimen/box_size"
                             android:layout_height="@dimen/box_size"
-                            android:background="@drawable/timetableicon"
-                            android:layout_row="3"
                             android:layout_column="1"
-                            android:gravity="center_horizontal|bottom"
-                            android:layout_rowSpan="1"
                             android:layout_columnSpan="1"
-                            android:textColor="#ffffff"
-                            android:layout_rowWeight="1"
                             android:layout_columnWeight="1"
-                            android:layout_gravity="center" />
+                            android:layout_gravity="center"
+                            android:layout_row="3"
+                            android:layout_rowSpan="1"
+                            android:layout_rowWeight="1"
+                            android:background="@drawable/timetableicon"
+                            android:gravity="center_horizontal|bottom"
+                            android:textColor="#ffffff"
+                            android:textSize="15sp" />
 
                         <TextView
+                            android:id="@+id/textView17"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:text="ATM"
-                            android:id="@+id/textView17"
-                            android:gravity="bottom"
                             android:layout_gravity="center_horizontal|bottom"
                             android:layout_weight="1"
+                            android:gravity="bottom"
+                            android:text="ATM"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textSize="20sp" />
                     </LinearLayout>
 
-                </LinearLayout>
+                </android.support.constraint.ConstraintLayout>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -278,7 +291,7 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="2sp"
+                    android:layout_height="12sp"
                     android:id="@+id/imageView18"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/actionbar"

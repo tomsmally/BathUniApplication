@@ -42,5 +42,10 @@
     <string name="title_activity_home">activity_home</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_maps">Map</string>
+    <string name="mail">Mail</string>
+    <string name="map">Map</string>
+    <string name="news">News</string>
+    <string name="new_icons_string">New</string>
+    <string name="popular">Popular</string>
 
 </resources>
