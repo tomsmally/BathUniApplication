@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable;
  * Created by 611218504 on 08/03/2017.
  */
 
-public class Restaurant extends Food {
+public class Restaurant extends Venue {
 
     String restID = "";
     String restTitle = "";
@@ -18,6 +18,7 @@ public class Restaurant extends Food {
     int restDrawable = R.drawable.limeopen;
 
     public Restaurant(String title, Boolean openStatus, String filename, String location) {
+        super(title, openStatus, filename, location);
         restTitle = title;
         restOpenStatus = openStatus;
         restFileName = filename;
@@ -93,10 +94,6 @@ public class Restaurant extends Food {
 
     public void setRestTimeToClose(Integer timeToClose) {
         restTimeToClose = timeToClose;
-    }
-
-    public void setLocation(String location) {
-        restLocation = location;
     }
 
     public void setRestFileName(String fileName) {

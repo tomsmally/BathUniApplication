@@ -8,7 +8,7 @@ import java.util.HashMap;
 /**
  * Created by Thomas on 01/06/2016.
  */
-public class club
+public class Club extends Venue
 {
     String name = "";
     Boolean clubOpen = true;
@@ -27,4 +27,8 @@ public class club
     String Twitter = "";
     String Instagram = "";
     String Google = "";
+
+    public Club(String title, Boolean openStatus, String filename, String location) {
+        super(title, openStatus, filename, location);
+    }
 }

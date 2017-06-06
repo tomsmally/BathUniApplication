@@ -291,7 +291,7 @@ public class Food extends AppCompatActivity
                 "Shaftsbury Road, BA2","","","","","","","","");
         //Food Page: Fresh - 2 Locations Open (closes 30mins & 3hrs)
         //Club Page: tabhost to switch between the different:
-        // - don't use club logo, instead just change title to Fresh - material design
+        // - don't use Club logo, instead just change title to Fresh - material design
         // - shop (/restaurant) locations
         // - opening times
         // - distance from location
@@ -353,7 +353,7 @@ public class Food extends AppCompatActivity
         }else{
             emailText.setVisibility(View.GONE);
         }
-        //set club image OnClick listener
+        //set Club image OnClick listener
         if(!imgLink.equals("")) {
             clubImg.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {

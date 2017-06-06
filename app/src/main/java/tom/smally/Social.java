@@ -3,12 +3,9 @@ package tom.smally;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,14 +19,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Social extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    HashMap<String, club> clubInfoHashMap = new HashMap<String, club>();
+    HashMap<String, Club> clubInfoHashMap = new HashMap<String, Club>();
     private ViewFlipper viewFlipper;
     Boolean clubPageOpen = false;
 
@@ -123,14 +118,15 @@ public class Social extends AppCompatActivity
 
     public void bridgeClick(View v)
     {
-        club clubInfo = new club();
+
+        Club clubInfo = new Club("The Second Bridge", false, "The Second Bridge", "City");
         clubInfo.name = "The Second Bridge";
         clubInfo.clubOpen = false;
         clubInfo.clubDrawable = R.drawable.bridgeimg;
         clubInfo.url = "http://www.secondbridge.co.uk";
         clubInfo.ticketInfo = "On the door.";
         clubInfo.ticketLink = "https://gotag.in/events";
-        clubInfo.openingTimes = getClubTimes("The Second Bridge");
+        clubInfo.openingTimes = getVenueOpeningTimes("The Second Bridge");
         clubInfo.mapLink = "https://www.google.co.uk/maps/place/The+Second+Bridge/@51.3790581,-2.3571993,17z/data=!3m1!4b1!4m2!3m1!1s0x48718111b8294f5b:0x59b6159a72b60c84";
         clubInfo.address = "10 Manvers St, Bath, Somerset BA1 1PQ";
         clubInfo.description = "No Desc.";
@@ -146,14 +142,14 @@ public class Social extends AppCompatActivity
 
     public void weirClick(View v)
     {
-        club clubInfo = new club();
+        Club clubInfo = new Club("Weir Lounge",false,"","");
         clubInfo.name = "Weir Lounge";
         clubInfo.clubOpen = false;
         clubInfo.clubDrawable = R.drawable.weirimg;
         clubInfo.url = "https://licklist.co.uk/the-weir-lounge-bath";
         clubInfo.ticketInfo = "On the door.";
         clubInfo.ticketLink = "https://gotag.in/events";
-        clubInfo.openingTimes = getClubTimes("Weir Lounge");
+        clubInfo.openingTimes = getVenueOpeningTimes("Weir Lounge");
         clubInfo.mapLink = "https://www.google.co.uk/maps/place/The+Second+Bridge/@51.3790581,-2.3571993,17z/data=!3m1!4b1!4m2!3m1!1s0x48718111b8294f5b:0x59b6159a72b60c84";
         clubInfo.address = "Spring Gardens Rd, Bath, Avon BA2 6PA";
         clubInfo.description = "No Desc.";
@@ -169,14 +165,14 @@ public class Social extends AppCompatActivity
 
     public void xlClick(View v)
     {
-        club clubInfo = new club();
+        Club clubInfo = new Club("XL",false,"","");
         clubInfo.name = "The Second Bridge";
         clubInfo.clubOpen = false;
         clubInfo.clubDrawable = R.drawable.bridgeimg;
         clubInfo.url = "http://www.secondbridge.co.uk";
         clubInfo.ticketInfo = "On the door.";
         clubInfo.ticketLink = "https://gotag.in/events";
-        clubInfo.openingTimes = getClubTimes("The Second Bridge");
+        clubInfo.openingTimes = getVenueOpeningTimes("The Second Bridge");
         clubInfo.mapLink = "https://www.google.co.uk/maps/place/The+Second+Bridge/@51.3790581,-2.3571993,17z/data=!3m1!4b1!4m2!3m1!1s0x48718111b8294f5b:0x59b6159a72b60c84";
         clubInfo.address = "10 Manvers St, Bath, Somerset BA1 1PQ";
         clubInfo.description = "No Desc.";
@@ -190,7 +186,7 @@ public class Social extends AppCompatActivity
         clubLoadText2(clubInfoHashMap.get("The Second Bridge"));
     }
 
-    public openingTimes getClubTimes(String club)
+    public openingTimes getVenueOpeningTimes(String club)
     {
         if(club.equals("The Second Bridge"))
         {
@@ -234,7 +230,7 @@ public class Social extends AppCompatActivity
         }
     }
 
-    public void clubLoadText2(final club clubInfo)
+    public void clubLoadText2(final Club clubInfo)
     {
         viewFlipper.showNext();
         clubPageOpen = true;
@@ -280,7 +276,7 @@ public class Social extends AppCompatActivity
         }else{
             emailText.setVisibility(View.GONE);
         }
-        //set club image OnClick listener
+        //set Club image OnClick listener
         if(!clubInfo.url.equals("")) {
             clubImg.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -327,7 +323,7 @@ public class Social extends AppCompatActivity
     }
 
     /*
-        Loads club into page
+        Loads Club into page
      */
     public void clubLoadText(String clubName, String status,int imageSrc, final String imgLink, String info, String tLink, String oT, String address, String text,
                              String drinks, String contacts,String emailStr, final String clubFbLink, final String clubTwLink, final String clubInLink, final String clubGglLink)
@@ -381,7 +377,7 @@ public class Social extends AppCompatActivity
         }else{
             emailText.setVisibility(View.GONE);
         }
-        //set club image OnClick listener
+        //set Club image OnClick listener
         if(!imgLink.equals("")) {
             clubImg.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
