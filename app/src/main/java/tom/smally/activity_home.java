@@ -22,13 +22,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.GridView;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class activity_home extends AppCompatActivity {
 
     String GlobalEmail = "ts690@bath.ac.uk";
     String GlobalUsername = "ts690";
     String GlobalPassword = "Snowleopard2412";
+
+    /*
+        App ID for AdMob units
+     */
+    public String APPID = "ca-app-pub-8376782270771340~2050018514";
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -60,6 +74,7 @@ public class activity_home extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        //mViewPager.inflate(R.id.grid_view_popular,null);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
@@ -70,6 +85,46 @@ public class activity_home extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            }
+        });
+
+
+
+        //LayoutInflater inflater = LayoutInflater.from(activity_home.this);
+        //inflater.inflate(R.layout.fragment_home_popular, mViewPager);
+
+        //loadPopularListView();
+        //setContentView(R.layout.fragment_home_popular);
+        //setContentView(R.layout.activity_home);
+    }
+
+    public void loadPopularListView(){
+        /**
+         * New GRID VIEW LAYOUT!! :)
+         */
+        GridView gridview = (GridView) mViewPager.findViewById(R.id.grid_view_popular);
+        //GridView gridview = (GridView) findViewById(R.id.grid_view_popular);
+
+        List<String> managementArray = new ArrayList<String>();
+        managementArray.add("Oldfield Park, Lower Oldfield Park");
+        managementArray.add("Bus Station, Dorchester St Bn");
+        managementArray.add("University of Bath, Bus Station dep");
+        managementArray.add("Oldfield Park, Junction Road");
+        managementArray.add("Bath City Centre, Dorchester Street Bn");
+        managementArray.add("University of Bath, University of Bath dep");
+        managementArray.add("Bath City Centre, Dorchester Street Bh dep");
+
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(
+                activity_home.this, android.R.layout.simple_list_item_1, managementArray);
+
+        gridview.setAdapter(adapter1);
+        //gridview.setAdapter(new GridViewItemAdapter(this));
+
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+                Toast.makeText(activity_home.this, "clicked " + position,
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -110,6 +165,7 @@ public class activity_home extends AppCompatActivity {
         int fragment_sectionNumber = 0;
 
         public PlaceholderFragment() {
+
         }
 
         /**
@@ -123,6 +179,7 @@ public class activity_home extends AppCompatActivity {
             fragment.fragment_sectionNumber = sectionNumber;
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
+
             return fragment;
         }
 
@@ -133,7 +190,7 @@ public class activity_home extends AppCompatActivity {
 
             switch (fragment_sectionNumber){
                 case 1:
-                    rootView = inflater.inflate(R.layout.fragment_activity_home, container, false);
+                    rootView = inflater.inflate(R.layout.fragment_home_popular, container, false);
                     break;
                 case 2:
                     rootView = inflater.inflate(R.layout.fragment_home_bath_uni, container, false);
@@ -142,6 +199,9 @@ public class activity_home extends AppCompatActivity {
                     rootView = inflater.inflate(R.layout.fragment_home_extras, container, false);
                     break;
             }
+
+
+
             //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
@@ -177,9 +237,9 @@ public class activity_home extends AppCompatActivity {
                 case 0:
                     return "Home";
                 case 1:
-                    return "Bath Uni";
+                    return "At the Uni";
                 case 2:
-                    return "Extras";
+                    return "Services";
             }
             return null;
         }

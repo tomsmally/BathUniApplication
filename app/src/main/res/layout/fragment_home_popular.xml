@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="tom.smally.activity_home$PlaceholderFragment"
+
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:background="#ebebeb">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:screenOrientation="sensorPortrait"
+        android:backgroundTint="#c6c6c6"
+        android:backgroundTintMode="screen"
+        android:background="@drawable/bathcampus"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/scrollView3"
+            android:layout_gravity="center_horizontal|top"
+            android:fillViewport="false"
+            android:nestedScrollingEnabled="false"
+            android:visibility="visible"
+            android:layout_weight="1"
+            android:scrollIndicators="none">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:scrollIndicators="none"
+                android:showDividers="beginning|middle|end">
+                <!--<LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#71BCFA"
+                    android:padding="6dip" >
+
+                    <TextView
+                        android:id="@+id/textViewTitle"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_weight="0.12"
+                        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                    <ProgressBar
+                        android:id="@+id/loadingProgressBar"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#71BCFA"
+                    android:padding="6dip"  >
+
+                    <EditText
+                        android:id="@+id/textNewToDo"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="@string/add_textbox_hint" >
+
+                        <requestFocus />
+                    </EditText>
+
+                    <Button
+                        android:id="@+id/buttonAddToDo"
+                        android:layout_width="64dip"
+                        android:layout_height="wrap_content"
+                        android:onClick="addItem"
+                        android:text="@string/add_button_text" />
+
+                </LinearLayout>
+
+                <ListView
+                    android:id="@+id/listViewToDo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/row_list_to_do"
+                    android:padding="6dip">
+
+                </ListView>
+                -->
+
+                <com.google.android.gms.ads.AdView
+                    android:id="@+id/adView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <GridView
+                    android:id="@+id/grid_view_popular"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:columnWidth="90dp"
+                    android:numColumns="auto_fit"
+                    android:verticalSpacing="10dp"
+                    android:horizontalSpacing="10dp"
+                    android:stretchMode="columnWidth"
+                    android:gravity="center"
+                    />
+
+                <ListView
+                    android:id="@+id/list_view_popular"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                     />
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</RelativeLayout>

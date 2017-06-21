@@ -78,6 +78,13 @@ public class MainActivity extends AppCompatActivity
     public String GlobalUsername = "ts690";
     public String GlobalPassword = "Snowleopard2412";
 
+
+    /*
+        App ID for AdMob units
+     */
+    public String APPID = "ca-app-pub-8376782270771340~2050018514";
+
+
     //private DatabaseReference mDatabase;
 
     @Override
