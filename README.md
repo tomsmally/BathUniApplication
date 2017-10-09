@@ -4,7 +4,7 @@ University app that provides info, help, directions, timetables, and other uses 
 ## Installation
 Simply pull the project and all content should be accessible in the current format. No plugin installation required.
 
-If you're having problem with Gradle when you pull the project, try reducing the "Path" size/ length. Either by pulling the project to "C://" or another reduced Path.
+If you're having a problem with Gradle when you pull the project, try pulling the project into a reduced path size/ length.
 
 ## University
 ### Timetable
